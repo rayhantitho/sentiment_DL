@@ -33,7 +33,7 @@ dir_embedding = os.path.join(path,"dir_embedding")
 path_model = os.path.abspath(os.path.join(path, 'coba'))
 
 
-class Sentiment_Classifier_CNN(object):
+class Sentiment_Classifier_BiLSTM(object):
     def __init__(self, predict=False, evaluate=False):
         self.drop = 0.30        
         self.batch_size = 20             
@@ -175,7 +175,7 @@ class Sentiment_Classifier_CNN(object):
         model.summary()
         
         print('Train the model...')
-        model.fit(X_train, y_train,
+        model.fit(X_train, y_train, 
                   batch_size=self.batch_size,
                   epochs=self.epochs, callbacks=[early_stopping],
                   validation_data=(X_val, y_val))
@@ -272,20 +272,14 @@ if __name__ == '__main__':
         coba = Sentiment_Classifier_CNN(predict=False, evaluate=False)
         coba.train(corpus)
     elif mode == 'eval':
-        coba_1 = Sentiment_Classifier_CNN(predict=False, evaluate=True)
+        coba_1 = Sentiment_Classifier_BiLSTM(predict=False, evaluate=True)
     elif mode == 'batch_predict':
-        coba_2 = Sentiment_Classifier_CNN(predict=True)
-        texts = ["Setidaknya Jokowi sudah menyumbang puluhan prestasi pada masa kepemimpinannya",
-                    "Film ini tidak menarik sama sekali",
-                    "Film ini menarik sekali",
-                    "Kedatangan Jokowi disambut meriah oleh masyarakat Papua",
-                    "Selamat pagi teman-teman, apa kabar?",
-                    "sadis sekali 49 orang muslim di Selandia baru ditembak mati secara membabi buta",
-                    "RT @MachmudAlqi: salut...tumbuh kesadaran seperti ini tidak lah mudah #nyokbikinjktlebihbersih @detikcom @aniesbaswedan @sandiuno https://t\u2026"]
+        coba_2 = Sentiment_Classifier_BiLSTM(predict=True)
+        texts = ['I love Virginia Beach', 'I hate going to Airport']
         hasil_batch = coba_2.classify_batch(texts)
     else:
         if text is not None:
-            coba_3 = Sentiment_Classifier_CNN(predict=True)
+            coba_3 = Sentiment_Classifier_BiLSTM(predict=True)
             hasil = coba_3.classify(text)
         else:
             print('Please input the text')
