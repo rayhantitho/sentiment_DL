@@ -28,7 +28,7 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 
 
-path = "/home/ebdesk/Downloads/"
+path = "/home/titho/Downloads/"
 dir_embedding = os.path.join(path,"dir_embedding")
 path_model = os.path.abspath(os.path.join(path, 'coba'))
 
