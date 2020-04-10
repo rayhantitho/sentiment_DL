@@ -269,7 +269,7 @@ if __name__ == '__main__':
     
     if mode == 'train':
         corpus = pd.read_json(dataset)
-        coba = Sentiment_Classifier_CNN(predict=False, evaluate=False)
+        coba = Sentiment_Classifier_BiLSTM(predict=False, evaluate=False)
         coba.train(corpus)
     elif mode == 'eval':
         coba_1 = Sentiment_Classifier_BiLSTM(predict=False, evaluate=True)
